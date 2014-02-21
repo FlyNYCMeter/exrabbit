@@ -16,7 +16,7 @@ defmodule Exrabbit.Mixfile do
   # { :foobar, "~> 0.1", git: "https://github.com/elixir-lang/foobar.git" }
   defp deps do
     [
-      { :amqp_client, ">0.0", github: "jbrisbin/amqp_client" },
+      { :amqp_client, github: "jbrisbin/amqp_client" },
     ]
   end
 end
