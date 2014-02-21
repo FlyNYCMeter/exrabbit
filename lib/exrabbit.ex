@@ -57,22 +57,20 @@ defmodule Exrabbit.Utils do
 			end
 		end)
 		
-		{:ok, connection} = :amqp_connection.start(:amqp_params_network[
-			username: connection_settings[:username],
-			password: connection_settings[:password],
-			host: connection_settings[:host],
-			virtual_host: connection_settings[:virtual_host],
-			heartbeat: connection_settings[:heartbeat]
-		])
-		connection
+    :amqp_connection.start(:amqp_params_network[
+			                                          username: connection_settings[:username],
+			                                          password: connection_settings[:password],
+			                                          host: connection_settings[:host],
+			                                          virtual_host: connection_settings[:virtual_host],
+			                                          heartbeat: connection_settings[:heartbeat]
+		                      ])
 	end
 
 	defp get_payload(:amqp_msg[payload: payload]), do: payload
 
 	def channel_open(connection), do: channel(connection)
 	def channel(connection) when is_pid(connection) do
-		{:ok, channel} = :amqp_connection.open_channel(connection)
-		channel
+		:amqp_connection.open_channel(connection)
 	end
 	def disconnect(connection), do: :amqp_connection.close(connection)
 	def channel_close(channel), do: :amqp_channel.close(channel)
