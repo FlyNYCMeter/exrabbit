@@ -104,13 +104,14 @@ defmodule Exrabbit.Utils do
 		:'queue.declare_ok'[queue: queue] = :amqp_channel.call channel, :'queue.declare'[queue: queue]
 		queue
 	end
-	def bind_queue(channel, queue, exchange, key // "") do
+	def bind_queue(channel, queue, exchange, key \\ "") do
 		:'queue.bind_ok'[] = :amqp_channel.call channel, :'queue.bind'[queue: queue, exchange: exchange, routing_key: key]		
 	end
 
 	def parse_message({:'basic.deliver'[delivery_tag: tag], :amqp_msg[payload: payload]}), do: {tag, payload}
 	def parse_message(:'basic.cancel_ok'[]), do: nil
 	def parse_message(:'basic.consume_ok'[]), do: nil
+  def parse_message(_other) do: nil
 
 	def subscribe(channel, queue), do: subscribe(channel, queue, self)
 	def subscribe(channel, queue, pid) do
