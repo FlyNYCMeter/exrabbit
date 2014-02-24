@@ -111,7 +111,7 @@ defmodule Exrabbit.Utils do
 	def parse_message({:'basic.deliver'[delivery_tag: tag], :amqp_msg[payload: payload]}), do: {tag, payload}
 	def parse_message(:'basic.cancel_ok'[]), do: nil
 	def parse_message(:'basic.consume_ok'[]), do: nil
-  def parse_message(_other) do: nil
+  def parse_message(_other), do: nil
 
 	def subscribe(channel, queue), do: subscribe(channel, queue, self)
 	def subscribe(channel, queue, pid) do
